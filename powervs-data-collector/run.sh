@@ -63,10 +63,11 @@ function run (){
 	for cid in "${CONTAINER_IDS[@]}"; do
 		echo "$cid" >> ./.containers_id
 	done
-
+	
+	echo "Collecting data from PowerVS..."
 	while [ ${#CONTAINER_IDS[@]} != 0 ]; do
 		IFS=$'\n' read -d '' -r -a CONTAINER_IDS < ./.containers_id
-		echo -ne "(Running ${#CONTAINER_IDS[@]} containers...) \033[0K\r"
+		#echo -ne "(Running ${#CONTAINER_IDS[@]} containers...) \033[0K\r"
 		for cid in "${CONTAINER_IDS[@]}"; do
 			if [ ! "$($CONTAINER_RUNTIME ps -q -f id="$cid")" ]; then
 				sed -i -e "/$cid/d" ./.containers_id

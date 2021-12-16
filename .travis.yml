@@ -1,0 +1,21 @@
+language: bash
+
+dist: focal
+
+sudo: required
+
+os: linux
+
+services: docker
+
+script:
+  - cd ./database-ops
+  - docker build -t powervs-data-insert:latest -f Dockerfile .
+  - docker tag powervs-data-insert:latest quay.io/rpsene/ibmcloud-ops:powervs-data-insert
+  - cd ../
+  - cd ./powervs-data-collector
+  - docker build -t powervs-data-collector:latest -f Dockerfile .
+  - docker tag powervs-data-collector:latest quay.io/rpsene/ibmcloud-ops:powervs-data-collector
+  - docker login quay.io -u "$ROBOT_USER" -p $ROBOT_TOKEN
+  - docker push quay.io/rpsene/ibmcloud-ops:powervs-data-insert
+  - docker push quay.io/rpsene/ibmcloud-ops:powervs-data-collector

@@ -137,13 +137,19 @@ def process_data(vm,pvs_name,ibmcloud_id,ibm_cloud_name,pvs_zone):
         memory = data["memory"] if "memory" in data else 0
         memory = memory if memory else 0
 
+        if processors > 0:
+            if memory/processors > 64:
+                premium_memory = True
+            else:
+                premium_memory = False
+
         health_status = data["health"]["status"] if "health" in data else "null"
         health_status = health_status if health_status else "null"
 
         status = data["status"] if "status" in data else "null"
         status = status if status else "null"
 
-        vm_values=('{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19}'.format(
+        vm_values=('{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20}'.format(
             ibmcloud_id,
             ibm_cloud_name,
             pvs_name,
@@ -157,6 +163,7 @@ def process_data(vm,pvs_name,ibmcloud_id,ibm_cloud_name,pvs_zone):
             processors,
             procType,
             memory,
+            premium_memory,
             number_volumes_attached,
             total_storage,
             total_tier1,

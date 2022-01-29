@@ -1,4 +1,4 @@
-FROM quay.io/rpsene/ibmcloud-ops:powervs-data-collector
+FROM quay.io/rpsene/ibmcloud-ops:powervs-base-image
 
 LABEL authors="Rafael Sene - rpsene@br.ibm.com"
 

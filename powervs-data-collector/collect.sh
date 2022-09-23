@@ -62,12 +62,11 @@ function get_instances_data(){
     echo "  - getting data from VMs..."
     local TODAY
     TODAY=$(date '+%Y%m%d')
-	local PVS_NAME=$1
-	local IBMCLOUD_ID=$2
-	local IBMCLOUD_NAME=$3
+    local PVS_NAME=$1
+    local IBMCLOUD_ID=$2
+    local IBMCLOUD_NAME=$3
     local PVS_ZONE=$4
-
-    local INSTANCES=($(ibmcloud pi ins --json | jq -r '.Payload.pvmInstances[] | "\(.pvmInstanceID)"'))
+    local INSTANCES=($(ibmcloud pi ins --json | jq -r '.pvmInstances[] | "\(.pvmInstanceID)"'))
 
     for in in "${INSTANCES[@]}"; do
         ibmcloud pi in "$in" --json >> "$(pwd)/$IBMCLOUD_ID/$in.json"

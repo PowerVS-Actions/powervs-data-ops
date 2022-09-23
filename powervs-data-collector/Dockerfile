@@ -7,6 +7,7 @@ WORKDIR /output
 ENV API_KEY=""
 ENV IBMCLOUD_ID=""
 ENV IBMCLOUD_NAME=""
+ENV LANG=en_US.UTF-8
 
 RUN apt-get update; apt-get -y install jq curl wget python3 python3-pip libpq-dev python-dev build-essential
 
